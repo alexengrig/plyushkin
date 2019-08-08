@@ -16,20 +16,10 @@
 
 package io.github.alexengrig.plyushkin.service;
 
-import io.github.alexengrig.plyushkin.domain.Pack;
-import io.github.alexengrig.plyushkin.domain.Thing;
+import org.springframework.web.multipart.MultipartFile;
 
-/**
- * <p>The base storage service.</p>
- *
- * @param <T> the thing type
- * @param <R> the pack type
- * @author Grig Alex
- * @version 0.1.0
- * @see io.github.alexengrig.plyushkin.service.StorageService
- * @see io.github.alexengrig.plyushkin.domain.Thing
- * @see io.github.alexengrig.plyushkin.domain.Pack
- * @since 0.1.0
- */
-public abstract class BaseStorageService<T, R> implements StorageService<Thing<T>, Pack<R>> {
+import java.nio.file.Path;
+
+public interface FileSystemService {
+    Path save(MultipartFile file);
 }
