@@ -16,4 +16,12 @@ public interface Pack<T> {
      * @since 0.1.0
      */
     T getContent();
+
+    /**
+     * <p>Returns the pack serial code.</p>
+     *
+     * @return the serial code
+     * @since 0.1.0
+     */
+    String getSerialCode();
 }

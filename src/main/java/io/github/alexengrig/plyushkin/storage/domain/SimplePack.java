@@ -19,6 +19,12 @@ public final class SimplePack<T> implements Pack<T> {
      * @since 0.1.0
      */
     private final T content;
+    /**
+     * <p>The serial number.</p>
+     *
+     * @since 0.1.0
+     */
+    private final String serialCode;
 
     /**
      * <p>Returns the pack content.</p>
@@ -29,5 +35,16 @@ public final class SimplePack<T> implements Pack<T> {
     @Override
     public T getContent() {
         return content;
+    }
+
+    /**
+     * <p>Returns the pack serial code.</p>
+     *
+     * @return the serial code
+     * @since 0.1.0
+     */
+    @Override
+    public String getSerialCode() {
+        return serialCode;
     }
 }
