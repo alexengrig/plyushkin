@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package io.github.alexengrig.plyushkin.controller;
+package io.github.alexengrig.plyushkin.storage.controller;
 
-import io.github.alexengrig.plyushkin.domain.MultipartFileStorageRequest;
-import io.github.alexengrig.plyushkin.domain.StorageResponse;
-import io.github.alexengrig.plyushkin.service.StorageService;
-import io.github.alexengrig.plyushkin.service.StorageUrlService;
+import io.github.alexengrig.plyushkin.storage.domain.Pack;
+import io.github.alexengrig.plyushkin.storage.domain.SimpleThing;
+import io.github.alexengrig.plyushkin.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,29 +27,26 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 
-import static io.github.alexengrig.plyushkin.constant.UrlConstants.Storage.*;
+import static io.github.alexengrig.plyushkin.storage.constant.UrlConstants.SLASH;
+import static io.github.alexengrig.plyushkin.storage.constant.UrlConstants.Storage.*;
 
 @RestController
 @RequestMapping(API_V1_STORAGE)
 @RequiredArgsConstructor
 public class StorageController {
     private final StorageService<MultipartFile> fileStorageService;
-    private final StorageUrlService storageUrlService;
 
     @PostMapping(value = FILE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> save(@RequestParam MultipartFile file) {
-        MultipartFileStorageRequest request = MultipartFileStorageRequest.of(file);
-        StorageResponse<MultipartFile> response = fileStorageService.store(request);
-        Long fileId = response.getContentId();
-        URI fileUrl = storageUrlService.getFileByIdUrl(fileId);
+        Pack<MultipartFile> filePack = fileStorageService.store(SimpleThing.of(file));
+        URI fileUrl = URI.create(API_V1_STORAGE_FILE + SLASH + filePack.getSerialCode());
         return ResponseEntity.created(fileUrl).build();
     }
 
     @GetMapping(value = FILE_BY_ID, produces = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> get(@PathVariable(FILE_ID) Long fileId) {
-        MultipartFileStorageRequest request = MultipartFileStorageRequest.of(fileId);
-        StorageResponse<MultipartFile> response = fileStorageService.get(request);
-        MultipartFile file = response.getContent();
+    public ResponseEntity<?> get(@PathVariable(FILE_ID) String serialCode) {
+        Pack<MultipartFile> filePack = fileStorageService.get(serialCode);
+        MultipartFile file = filePack.getContent();
         return ResponseEntity.ok(file);
     }
 }
