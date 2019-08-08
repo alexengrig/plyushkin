@@ -16,26 +16,6 @@
 
 package io.github.alexengrig.plyushkin.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-/**
- * <p>The thing contains a value.</p>
- *
- * @param <T> the content value type
- * @author Grig Alex
- * @version 0.1.0
- * @since 0.1.0
- */
-@Data
-@AllArgsConstructor
-public class Thing<T> {
-    /**
-     * <p>The content value.</p>
-     *
-     * @version 0.1.0
-     * @see T
-     * @since 0.1.0
-     */
-    private final T value;
+public interface StorageRequest<T> {
+    T getContent();
 }
