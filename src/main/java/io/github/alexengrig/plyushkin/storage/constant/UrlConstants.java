@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.alexengrig.plyushkin.constant;
+package io.github.alexengrig.plyushkin.storage.constant;
 
 public interface UrlConstants {
     String SLASH = "/";
