@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package io.github.alexengrig.plyushkin.repository;
+package io.github.alexengrig.plyushkin.database.repository;
 
-import io.github.alexengrig.plyushkin.domain.StoreFile;
+import io.github.alexengrig.plyushkin.database.domain.FileDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StoreFileRepository extends MongoRepository<StoreFile, Long> {
+public interface FileDocumentRepository extends MongoRepository<FileDocument, Long> {
 }
