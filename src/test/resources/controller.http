@@ -1,3 +1,6 @@
-GET http://localhost:1842/storage
+POST http://{{host}}:{{port}}/api/v1/storage/file
+Content-Type: multipart/form-data
+Content-Disposition: form-data; name="file";
+
 
 ###
