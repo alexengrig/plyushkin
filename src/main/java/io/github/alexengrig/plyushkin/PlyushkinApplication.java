@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Plyushkin contributors
+ * Copyright 2019 Alexengrig Dev.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,22 +19,8 @@ package io.github.alexengrig.plyushkin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * <p>The application entry point class.</p>
- *
- * @author Grig Alex
- * @version 0.1.0
- * @since 0.1.0
- */
 @SpringBootApplication
 public class PlyushkinApplication {
-    /**
-     * <p>The application entry point method.</p>
-     *
-     * @param args application arguments
-     * @version 0.1.0
-     * @since 0.1.0
-     */
     public static void main(String[] args) {
         SpringApplication.run(PlyushkinApplication.class, args);
     }
