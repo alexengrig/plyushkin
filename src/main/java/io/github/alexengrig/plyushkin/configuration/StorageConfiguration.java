@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-package io.github.alexengrig.plyushkin;
+package io.github.alexengrig.plyushkin.configuration;
 
-import io.github.alexengrig.plyushkin.configuration.StorageConfiguration;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@SpringBootApplication
-@EnableConfigurationProperties(StorageConfiguration.class)
-public class PlyushkinApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(PlyushkinApplication.class, args);
-    }
+@Data
+@ConfigurationProperties(prefix = "plyushkin.storage")
+public class StorageConfiguration {
+    private String path;
 }

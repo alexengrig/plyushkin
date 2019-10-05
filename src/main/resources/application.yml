@@ -1,2 +1,5 @@
 server:
   port: 1842
+plyushkin:
+  storage:
+    path: C:\\temp
