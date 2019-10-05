@@ -16,7 +16,7 @@
 
 package io.github.alexengrig.plyushkin.service;
 
-import io.github.alexengrig.plyushkin.File;
+import io.github.alexengrig.plyushkin.domain.File;
 import io.github.alexengrig.plyushkin.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

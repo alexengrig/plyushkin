@@ -16,7 +16,7 @@
 
 package io.github.alexengrig.plyushkin.service;
 
-import io.github.alexengrig.plyushkin.File;
+import io.github.alexengrig.plyushkin.domain.File;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;

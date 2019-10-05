@@ -16,7 +16,7 @@
 
 package io.github.alexengrig.plyushkin.repository;
 
-import io.github.alexengrig.plyushkin.File;
+import io.github.alexengrig.plyushkin.domain.File;
 
 import java.util.Optional;
 

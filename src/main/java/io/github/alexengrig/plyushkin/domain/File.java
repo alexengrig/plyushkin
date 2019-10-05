@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.alexengrig.plyushkin;
+package io.github.alexengrig.plyushkin.domain;
 
 import lombok.Builder;
 import lombok.Data;
