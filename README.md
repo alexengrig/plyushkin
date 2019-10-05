@@ -1,4 +1,4 @@
-# 🧓🏻 plyushkin [![GitHub](https://img.shields.io/github/license/alexengrig/plyushkin?style=flat&&color=informational)](LICENSE)
+# 👴 plyushkin [![GitHub](https://img.shields.io/github/license/alexengrig/plyushkin?style=flat&&color=informational)](LICENSE)
 
 [![Build Status](https://travis-ci.com/alexengrig/plyushkin.svg?branch=master)](https://travis-ci.com/alexengrig/plyushkin)
 
