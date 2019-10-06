@@ -22,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("files")
 @RequiredArgsConstructor
@@ -36,7 +38,7 @@ public class FileController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(MultipartFile file) {
+    public ResponseEntity<?> save(MultipartFile file) throws IOException {
         return ResponseEntity.ok(service.save(file));
     }
 }

@@ -19,10 +19,11 @@ package io.github.alexengrig.plyushkin.service;
 import io.github.alexengrig.plyushkin.domain.File;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public interface FileService {
     Optional<File> getById(Long fileId);
 
-    File save(MultipartFile file);
+    File save(MultipartFile file) throws IOException;
 }

@@ -16,17 +16,23 @@
 
 package io.github.alexengrig.plyushkin.service;
 
+import io.github.alexengrig.plyushkin.configuration.StorageConfiguration;
 import io.github.alexengrig.plyushkin.domain.File;
 import io.github.alexengrig.plyushkin.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class SimpleFileService implements FileService {
+    private final StorageConfiguration configuration;
     private final FileRepository repository;
 
     @Override
@@ -35,9 +41,15 @@ public class SimpleFileService implements FileService {
     }
 
     @Override
-    public File save(MultipartFile file) {
+    public File save(MultipartFile file) throws IOException {
+        String rootPath = configuration.getPath();
+        String originalFilename = file.getOriginalFilename();
+        String filename = originalFilename + UUID.randomUUID();
+        Path path = Paths.get(rootPath, filename);
+        file.transferTo(path);
         return repository.save(File.builder()
-                .name(file.getOriginalFilename())
+                .name(originalFilename)
+                .path(path.toString())
                 .build());
     }
 }

@@ -24,4 +24,5 @@ import lombok.Data;
 public class File {
     private Long id;
     private String name;
+    private String path;
 }
