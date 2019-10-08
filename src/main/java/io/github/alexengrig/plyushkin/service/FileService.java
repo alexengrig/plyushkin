@@ -26,4 +26,6 @@ public interface FileService {
     Optional<File> getById(Long fileId);
 
     File save(MultipartFile file) throws IOException;
+
+    Optional<byte[]> getRawById(Long fileId) throws IOException;
 }

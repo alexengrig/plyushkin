@@ -18,6 +18,7 @@ package io.github.alexengrig.plyushkin.controller;
 
 import io.github.alexengrig.plyushkin.service.FileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,5 +41,13 @@ public class FileController {
     @PostMapping
     public ResponseEntity<?> save(MultipartFile file) throws IOException {
         return ResponseEntity.ok(service.save(file));
+    }
+
+    @GetMapping(value = "/{fileId}/raw", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public @ResponseBody
+    ResponseEntity<byte[]> getRaw(@PathVariable Long fileId) throws IOException {
+        return service.getRawById(fileId)
+                .map(ResponseEntity::ok)
+                .orElseGet(ResponseEntity.notFound()::build);
     }
 }

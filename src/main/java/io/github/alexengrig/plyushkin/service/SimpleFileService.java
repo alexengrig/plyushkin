@@ -24,6 +24,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
@@ -51,5 +53,19 @@ public class SimpleFileService implements FileService {
                 .name(originalFilename)
                 .path(path.toString())
                 .build());
+    }
+
+    @Override
+    public Optional<byte[]> getRawById(Long fileId) throws IOException {
+        Optional<File> fileOptional = repository.findById(fileId);
+        if (fileOptional.isPresent()) {
+            File file = fileOptional.get();
+            Path path = Paths.get(file.getPath());
+            InputStream inputStream = Files.newInputStream(path);
+            byte[] target = new byte[inputStream.available()];
+            inputStream.read(target);
+            return Optional.of(target);
+        }
+        return Optional.empty();
     }
 }
