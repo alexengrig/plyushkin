@@ -43,11 +43,11 @@ public class FileController {
         return ResponseEntity.ok(service.save(file));
     }
 
-    @GetMapping(value = "/{fileId}/raw", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(value = "/{fileId}/raw")
     public @ResponseBody
     ResponseEntity<byte[]> getRaw(@PathVariable Long fileId) throws IOException {
         return service.getRawById(fileId)
-                .map(ResponseEntity::ok)
+                .map(ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM)::body)
                 .orElseGet(ResponseEntity.notFound()::build);
     }
 }
