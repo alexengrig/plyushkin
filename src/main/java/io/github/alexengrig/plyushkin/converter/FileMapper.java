@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package io.github.alexengrig.plyushkin.repository;
+package io.github.alexengrig.plyushkin.converter;
 
 import io.github.alexengrig.plyushkin.domain.File;
-import org.springframework.stereotype.Repository;
+import io.github.alexengrig.plyushkin.domain.FileEntity;
+import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-@Repository
-public class MapFileRepository implements FileRepository {
-    private final Map<Long, File> map = new HashMap<>();
-
+@Component
+public class FileMapper implements Mapper<File, FileEntity> {
     @Override
-    public File save(File file) {
-        long id = file.hashCode();
-        file.setId(id);
-        map.put(id, file);
-        return file;
+    public FileEntity map(File file) {
+        return FileEntity.builder()
+                .id(file.getId())
+                .name(file.getName())
+                .path(file.getPath())
+                .build();
     }
 
     @Override
-    public Optional<File> findById(Long fileId) {
-        return Optional.ofNullable(map.get(fileId));
+    public File unmap(FileEntity file) {
+        return File.builder()
+                .id(file.getId())
+                .name(file.getName())
+                .path(file.getPath())
+                .build();
     }
 }
