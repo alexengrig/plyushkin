@@ -17,11 +17,23 @@
 package io.github.alexengrig.plyushkin.repository;
 
 import io.github.alexengrig.plyushkin.domain.FileEntity;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface FileRepository {
-    FileEntity save(FileEntity file);
+@Repository
+@RequiredArgsConstructor
+public class SimpleFileRepository implements FileRepository {
+    private final JpaFileRepository jpaFileRepository;
 
-    Optional<FileEntity> findById(Long fileId);
+    @Override
+    public FileEntity save(FileEntity file) {
+        return jpaFileRepository.save(file);
+    }
+
+    @Override
+    public Optional<FileEntity> findById(Long fileId) {
+        return jpaFileRepository.findById(fileId);
+    }
 }

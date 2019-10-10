@@ -17,7 +17,9 @@
 package io.github.alexengrig.plyushkin.service;
 
 import io.github.alexengrig.plyushkin.configuration.StorageConfiguration;
+import io.github.alexengrig.plyushkin.converter.Mapper;
 import io.github.alexengrig.plyushkin.domain.File;
+import io.github.alexengrig.plyushkin.domain.FileEntity;
 import io.github.alexengrig.plyushkin.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,10 +38,11 @@ import java.util.UUID;
 public class SimpleFileService implements FileService {
     private final StorageConfiguration configuration;
     private final FileRepository repository;
+    private final Mapper<File, FileEntity> mapper;
 
     @Override
     public Optional<File> getById(Long fileId) {
-        return repository.findById(fileId);
+        return repository.findById(fileId).map(mapper::unmap);
     }
 
     @Override
@@ -49,15 +52,21 @@ public class SimpleFileService implements FileService {
         String filename = originalFilename + UUID.randomUUID();
         Path path = Paths.get(rootPath, filename);
         file.transferTo(path);
-        return repository.save(File.builder()
+        File target = File.builder()
                 .name(originalFilename)
                 .path(path.toString())
-                .build());
+                .build();
+        return Optional.of(target)
+                .map(mapper::map)
+                .map(repository::save)
+                .map(mapper::unmap)
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public Optional<byte[]> getRawById(Long fileId) throws IOException {
-        Optional<File> fileOptional = repository.findById(fileId);
+        Optional<File> fileOptional = repository.findById(fileId).map(mapper::unmap);
         if (fileOptional.isPresent()) {
             File file = fileOptional.get();
             Path path = Paths.get(file.getPath());
