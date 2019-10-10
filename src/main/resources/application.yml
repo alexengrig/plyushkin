@@ -1,5 +1,18 @@
 server:
   port: 1842
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
 plyushkin:
   storage:
-    path: C:\\temp
+    path: C:\\temp\plyushkin\storage
