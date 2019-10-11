@@ -21,6 +21,8 @@ import io.github.alexengrig.plyushkin.domain.File;
 import io.github.alexengrig.plyushkin.domain.FileEntity;
 import io.github.alexengrig.plyushkin.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,11 +42,6 @@ public class SimpleFileService implements FileService {
     private final Mapper<File, FileEntity> mapper;
 
     @Override
-    public Optional<File> getById(Long fileId) {
-        return repository.findById(fileId).map(mapper::unmap);
-    }
-
-    @Override
     public File save(MultipartFile file) throws IOException {
         String rootPath = configuration.getPath();
         String originalFilename = file.getOriginalFilename();
@@ -60,6 +57,16 @@ public class SimpleFileService implements FileService {
                 .map(repository::save)
                 .map(mapper::unmap)
                 .orElseThrow(IllegalArgumentException::new);
+    }
+
+    @Override
+    public Page<File> search(Pageable pageable) {
+        return repository.findAll(pageable).map(mapper::unmap);
+    }
+
+    @Override
+    public Optional<File> getById(Long fileId) {
+        return repository.findById(fileId).map(mapper::unmap);
     }
 
     @Override

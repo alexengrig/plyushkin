@@ -17,15 +17,19 @@
 package io.github.alexengrig.plyushkin.service;
 
 import io.github.alexengrig.plyushkin.domain.File;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Optional;
 
 public interface FileService {
-    Optional<File> getById(Long fileId);
-
     File save(MultipartFile file) throws IOException;
+
+    Page<File> search(Pageable pageable);
+
+    Optional<File> getById(Long fileId);
 
     Optional<byte[]> getRawById(Long fileId) throws IOException;
 }

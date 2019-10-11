@@ -17,11 +17,15 @@
 package io.github.alexengrig.plyushkin.repository;
 
 import io.github.alexengrig.plyushkin.domain.FileEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
 public interface FileRepository {
     FileEntity save(FileEntity file);
+
+    Page<FileEntity> findAll(Pageable pageable);
 
     Optional<FileEntity> findById(Long fileId);
 }

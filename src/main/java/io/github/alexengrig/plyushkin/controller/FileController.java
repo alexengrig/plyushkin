@@ -18,6 +18,7 @@ package io.github.alexengrig.plyushkin.controller;
 
 import io.github.alexengrig.plyushkin.service.FileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,12 @@ public class FileController {
     @PostMapping
     public ResponseEntity<?> save(MultipartFile file) throws IOException {
         return ResponseEntity.created(URI.create("/files/" + service.save(file).getId())).build();
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<?> search(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(service.search(PageRequest.of(page, size)));
     }
 
     @GetMapping("/{fileId}")

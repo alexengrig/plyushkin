@@ -18,6 +18,8 @@ package io.github.alexengrig.plyushkin.repository;
 
 import io.github.alexengrig.plyushkin.domain.FileEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -30,6 +32,11 @@ public class SimpleFileRepository implements FileRepository {
     @Override
     public FileEntity save(FileEntity file) {
         return jpaFileRepository.save(file);
+    }
+
+    @Override
+    public Page<FileEntity> findAll(Pageable pageable) {
+        return jpaFileRepository.findAll(pageable);
     }
 
     @Override
