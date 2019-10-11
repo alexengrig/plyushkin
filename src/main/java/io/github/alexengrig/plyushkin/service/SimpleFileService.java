@@ -17,7 +17,6 @@
 package io.github.alexengrig.plyushkin.service;
 
 import io.github.alexengrig.plyushkin.configuration.StorageConfiguration;
-import io.github.alexengrig.plyushkin.converter.Mapper;
 import io.github.alexengrig.plyushkin.domain.File;
 import io.github.alexengrig.plyushkin.domain.FileEntity;
 import io.github.alexengrig.plyushkin.repository.FileRepository;

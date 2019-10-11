@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.alexengrig.plyushkin.converter;
+package io.github.alexengrig.plyushkin.service;
 
 public interface Mapper<T, R> {
     R map(T t);
